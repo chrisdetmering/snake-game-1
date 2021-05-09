@@ -1,10 +1,19 @@
 const gameDOM = document.getElementById('game-space')
 
+let score = 0;
+let apple; 
 
 gridGenerate();
-let target = document.getElementById("181")
-target.setAttribute("class", "pixel apple");
-// newApple();
+newGame();
+
+//TESTING newApple()
+// window.addEventListener('click', function(event){
+//     if(event.target.matches('.apple')){
+//         return newApple();
+//     }
+// }
+// )
+
 
 //IF GAME OVER
         //SNAKE TOUCHES ITSELF
@@ -18,12 +27,21 @@ target.setAttribute("class", "pixel apple");
 //CONTROL SNAKE WITH ARROW KEYS ON KEYBOARD
 //SHOW SCORE OF APPLES EATEN
 
+function newGame(){
+    //start snake at id='174' to id='176'
+    apple = document.getElementById("181")
+    apple.setAttribute("class", "pixel apple");
+    score = 0;
+}
+
 
 function newApple(){
-    target.setAttribute("class", "pixel")
+    apple.setAttribute("class", "pixel")
     let number = Math.floor(Math.random()* 361);
-    target = document.getElementById(number);
-    target.setAttribute("class", "pixel apple")
+    apple = document.getElementById(number);
+    apple.setAttribute("class", "pixel apple")
+    score +=1 
+    document.getElementById('score').innerText = score;
 }
 
 function gridGenerate(){

@@ -20,5 +20,6 @@ body{
 
 .apple{
    background-color: red;
+   z-index: 1;
 
 }
