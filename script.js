@@ -5,7 +5,7 @@ let apple;
 
 gridGenerate();
 newGame();
-
+console.log(apple.offsetTop)
 //TESTING newApple()
 // window.addEventListener('click', function(event){
 //     if(event.target.matches('.apple')){
@@ -27,13 +27,14 @@ newGame();
 //CONTROL SNAKE WITH ARROW KEYS ON KEYBOARD
 //SHOW SCORE OF APPLES EATEN
 
+
+
 function newGame(){
     //start snake at id='174' to id='176'
     apple = document.getElementById("181")
     apple.setAttribute("class", "pixel apple");
     score = 0;
 }
-
 
 function newApple(){
     apple.setAttribute("class", "pixel")

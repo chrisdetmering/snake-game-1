@@ -3,23 +3,26 @@ body{
     text-align: center;
 }
 #game-space{
-    display: grid;
-    grid-template-columns: repeat(19, auto);
-    width: 722px;
-    height: 722px;
+    /* display: grid;
+    grid-template-columns: repeat(19, auto); */
+    width: 500px;
+    height: 500px;
     left: 0;
     margin-left: auto;
     margin-right: auto;
     border: black solid 1px;
 
 }
-.pixel{
+
+
+/* Don't work with canvas element */
+/* .pixel{
     display: inline-grid;
-    border: black solid 1px;
+    border: black solid 2px;
 }
 
 .apple{
    background-color: red;
    z-index: 1;
 
-}
+} */
