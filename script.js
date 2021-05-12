@@ -1,19 +1,13 @@
-const gameDOM = document.getElementById('game-space')
+let canvas = document.getElementById('game-space')
+let apple = canvas.getContext("2d");
+let aX = 240;
+let aY = 240;
+apple.fillStyle = "#FF0000"
+//fillRect(x,y, width, height)
+apple.fillRect(aX, aY, 20, 20);
 
+let scoreboard = document.getElementById('score');
 let score = 0;
-let apple; 
-
-gridGenerate();
-newGame();
-console.log(apple.offsetTop)
-//TESTING newApple()
-// window.addEventListener('click', function(event){
-//     if(event.target.matches('.apple')){
-//         return newApple();
-//     }
-// }
-// )
-
 
 //IF GAME OVER
         //SNAKE TOUCHES ITSELF
@@ -23,30 +17,22 @@ console.log(apple.offsetTop)
         //NOTIFY USER
 //IF SNAKE EAT APPLE
     //GROW ONE LENGTH
-    //RESPAWN NEW APPLE AT RANDOM LOCATION
+    //---RESPAWN NEW APPLE AT RANDOM LOCATION
 //CONTROL SNAKE WITH ARROW KEYS ON KEYBOARD
 //SHOW SCORE OF APPLES EATEN
 
 
-
-function newGame(){
-    //start snake at id='174' to id='176'
-    apple = document.getElementById("181")
-    apple.setAttribute("class", "pixel apple");
-    score = 0;
+function randomXorY(){
+    return (Math.floor(Math.random() * 24)) * 20;
 }
 
 function newApple(){
-    apple.setAttribute("class", "pixel")
-    let number = Math.floor(Math.random()* 361);
-    apple = document.getElementById(number);
-    apple.setAttribute("class", "pixel apple")
-    score +=1 
-    document.getElementById('score').innerText = score;
-}
-
-function gridGenerate(){
-    for(let i = 0; i < 361; i++){
-        gameDOM.innerHTML += "<div class='pixel' id=" + (i+1) + "></div>"
-    }
+    let x = randomXorY();
+    let y = randomXorY();
+    apple.clearRect(aX, aY, 20, 20)
+    apple.fillRect(x, y, 20, 20);
+    score += 1;
+    scoreboard.innerText = score;
+    aX = x;
+    aY = y;
 }
