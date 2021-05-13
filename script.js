@@ -7,6 +7,7 @@ let snakeX = 120;
 let snakeY = 120;
 let direction = "right";
 let score = 0;
+let snakeWidth = 40;
 
 const snakeHeight = 20;
 const appleSize = 20;
@@ -51,7 +52,7 @@ function drawEverything(){
     
     snake = canvasContext;
     snake.fillStyle = "blue";
-    snake.fillRect(snakeX, snakeY, 40, snakeHeight);
+    snake.fillRect(snakeX, snakeY, snakeWidth, snakeHeight);
 
     if (snakeX === appleX && snakeY === appleY){
         newApple();
@@ -106,4 +107,5 @@ function newApple(){
     scoreboard.innerText = score;
     appleX = x;
     appleY = y;
+    snakeWidth += 20;
 }
