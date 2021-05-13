@@ -52,7 +52,13 @@ function drawEverything(){
     
     snake = canvasContext;
     snake.fillStyle = "blue";
-    snake.fillRect(snakeX, snakeY, snakeWidth, snakeHeight);
+
+    if(direction === "up" || direction === "down"){
+        snake.fillRect(snakeX, snakeY, snakeHeight, snakeWidth);
+    }
+    if(direction === "left" || direction === "right"){
+        snake.fillRect(snakeX, snakeY, snakeWidth, snakeHeight);
+    }
 
     if (snakeX === appleX && snakeY === appleY){
         newApple();
