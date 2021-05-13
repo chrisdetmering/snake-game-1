@@ -1,15 +1,19 @@
 let canvas;
 let canvasContext;
+let scoreboard;
 let appleX = 240;
 let appleY = 240;
 let snakeX = 120;
 let snakeY = 120;
 let direction = "right";
+let score = 0;
+
 const snakeHeight = 20;
 const appleSize = 20;
 
 window.onload = function(){
     console.log("hello world");
+    scoreboard = document.getElementById('score');
     canvas = document.getElementById('game-space')
     canvasContext = canvas.getContext('2d');
 
@@ -19,12 +23,6 @@ window.onload = function(){
         drawEverything();
     }, 1000/fps);
 }
-
-
-
-
-
-
 
 function moveEverything(direction){
     switch(direction){
@@ -41,8 +39,6 @@ function moveEverything(direction){
             snakeY += 20;
             break;            
     }
-    // snakeX = snakeX + 5;
-    // snakeY;
 }
 
 function drawEverything(){
@@ -56,6 +52,11 @@ function drawEverything(){
     snake = canvasContext;
     snake.fillStyle = "blue";
     snake.fillRect(snakeX, snakeY, 40, snakeHeight);
+
+    if (snakeX === appleX && snakeY === appleY){
+        newApple();
+    }
+
 }
 
 document.onkeydown = function(e){
@@ -77,8 +78,7 @@ document.onkeydown = function(e){
 }
 
  
-// let scoreboard = document.getElementById('score');
-// let score = 0;
+
 
 //IF GAME OVER
         //SNAKE TOUCHES ITSELF
@@ -92,26 +92,18 @@ document.onkeydown = function(e){
 //CONTROL SNAKE WITH ARROW KEYS ON KEYBOARD
 //SHOW SCORE OF APPLES EATEN
 
-// let canvas = document.getElementById('game-space')
-// let apple = canvas.getContext("2d");
-// let appleX = 240;
-// let appleY = 240;
-// apple.fillStyle = "red"
-// //fillRect(x,y, width, height)
-// apple.fillRect(appleX, appleY, 20, 20);
 
+function randomXorY(){
+    return (Math.floor(Math.random() * 24)) * 20;
+}
 
-// function randomXorY(){
-//     return (Math.floor(Math.random() * 24)) * 20;
-// }
-
-// function newApple(){
-//     let x = randomXorY();
-//     let y = randomXorY();
-//     apple.clearRect(appleX, appleY, 20, 20)
-//     apple.fillRect(x, y, 20, 20);
-//     score += 1;
-//     scoreboard.innerText = score;
-//     appleX = x;
-//     appleY = y;
-// }
+function newApple(){
+    let x = randomXorY();
+    let y = randomXorY();
+    apple.clearRect(appleX, appleY, 20, 20)
+    apple.fillRect(x, y, 20, 20);
+    score += 1;
+    scoreboard.innerText = score;
+    appleX = x;
+    appleY = y;
+}
