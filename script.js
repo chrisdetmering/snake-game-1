@@ -8,6 +8,14 @@ let snakeY = 120;
 let direction = "right";
 let score = 0;
 let snakeWidth = 40;
+let pixelSize = 20;
+
+let snakeBody = [
+    {x: 120, y: 120},
+    {x: 100, y: 120}
+]
+
+let snakeCopy = snakeBody;
 
 const snakeHeight = 20;
 const appleSize = 20;
@@ -48,22 +56,25 @@ function drawEverything(){
 
     apple = canvasContext;
     apple.fillStyle = "red"
-    apple.fillRect(appleX, appleY, appleSize, appleSize);  
+    apple.fillRect(appleX, appleY, pixelSize, pixelSize);
     
-    snake = canvasContext;
-    snake.fillStyle = "blue";
+    drawSnake();
+    //===REFACOTRING - OLD CODE MAY NOT WORK WITH NEW ATTEMPT====
+    //
+    // snake = canvasContext;
+    // snake.fillStyle = "blue";
+    //
+    // if(direction === "up" || direction === "down"){
+    //     snake.fillRect(snakeX, snakeY, snakeHeight, snakeWidth);
+    // }
+    // if(direction === "left" || direction === "right"){
+    //     snake.fillRect(snakeX, snakeY, snakeWidth, snakeHeight);
+    // }
 
-    if(direction === "up" || direction === "down"){
-        snake.fillRect(snakeX, snakeY, snakeHeight, snakeWidth);
-    }
-    if(direction === "left" || direction === "right"){
-        snake.fillRect(snakeX, snakeY, snakeWidth, snakeHeight);
-    }
-
-    if (snakeX === appleX && snakeY === appleY){
-        newApple();
-    }
-
+    // if (snakeX === appleX && snakeY === appleY){
+    //     newApple();
+    // }
+    //==========================================================
 }
 
 document.onkeydown = function(e){
@@ -98,6 +109,16 @@ document.onkeydown = function(e){
     //---RESPAWN NEW APPLE AT RANDOM LOCATION
 //CONTROL SNAKE WITH ARROW KEYS ON KEYBOARD
 //SHOW SCORE OF APPLES EATEN
+
+function drawSnake(){
+    snakeBody.forEach(pixel => {
+        snakePiece = canvasContext;
+        snakePiece.fillStyle = "blue";
+        snakePiece.fillRect(pixel.x, pixel.y, 20, 20)
+    })
+
+
+}
 
 
 function randomXorY(){
