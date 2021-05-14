@@ -3,8 +3,6 @@ let canvasContext;
 let scoreboard;
 let appleX = 240;
 let appleY = 240;
-let snakeX = 120;
-let snakeY = 120;
 let direction = "right";
 let score = 0;
 let snakeWidth = 40;
@@ -12,16 +10,15 @@ let pixelSize = 20;
 
 let snakeBody = [
     {x: 120, y: 120},
-    {x: 100, y: 120}
+    {x: 100, y: 120},
+    {x: 80, y: 120},
+    {x: 60, y: 120}
 ]
 
 let snakeCopy = snakeBody;
 
-const snakeHeight = 20;
-const appleSize = 20;
 
 window.onload = function(){
-    console.log("hello world");
     scoreboard = document.getElementById('score');
     canvas = document.getElementById('game-space')
     canvasContext = canvas.getContext('2d');
@@ -33,22 +30,7 @@ window.onload = function(){
     }, 1000/fps);
 }
 
-function moveEverything(direction){
-    switch(direction){
-        case "left":
-            snakeX -= 20;
-            break;
-        case "right":
-            snakeX += 20;
-            break
-        case "up":
-            snakeY -= 20;
-            break;
-        case "down":
-            snakeY += 20;
-            break;            
-    }
-}
+
 
 function drawEverything(){
     canvasContext.fillStyle = "white"
@@ -59,11 +41,8 @@ function drawEverything(){
     apple.fillRect(appleX, appleY, pixelSize, pixelSize);
     
     drawSnake();
+
     //===REFACOTRING - OLD CODE MAY NOT WORK WITH NEW ATTEMPT====
-    //
-    // snake = canvasContext;
-    // snake.fillStyle = "blue";
-    //
     // if(direction === "up" || direction === "down"){
     //     snake.fillRect(snakeX, snakeY, snakeHeight, snakeWidth);
     // }
@@ -116,8 +95,6 @@ function drawSnake(){
         snakePiece.fillStyle = "blue";
         snakePiece.fillRect(pixel.x, pixel.y, 20, 20)
     })
-
-
 }
 
 
@@ -136,3 +113,42 @@ function newApple(){
     appleY = y;
     snakeWidth += 20;
 }
+
+function moveEverything(direction){
+    switch(direction){
+        case "left":
+            snakeBody[0].x -= pixelSize
+            // snakeX -= 20;
+            break;
+        case "right":
+            snakeBody[0].x += pixelSize
+            // snakeX += 20;
+            break
+        case "up":
+            snakeBody[0].y -= pixelSize
+            // snakeY -= 20;
+            break;
+        case "down":
+            snakeBody[0].y += pixelSize
+            // snakeY += 20;
+            break;            
+    }
+}
+
+
+// function moveEverything(direction){
+//     switch(direction){
+//         case "left":
+//             snakeX -= 20;
+//             break;
+//         case "right":
+//             snakeX += 20;
+//             break
+//         case "up":
+//             snakeY -= 20;
+//             break;
+//         case "down":
+//             snakeY += 20;
+//             break;            
+//     }
+// }
