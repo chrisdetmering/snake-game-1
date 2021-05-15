@@ -8,26 +8,34 @@ let score = 0;
 let snakeWidth = 40;
 let pixelSize = 20;
 
-let snakeBody = [
-    {x: 120, y: 120},
-    {x: 100, y: 120},
-    {x: 80, y: 120},
-    {x: 60, y: 120}
-]
+let snakeBody;
+let snakeCopy;
 
-let snakeCopy = snakeBody;
 
 
 window.onload = function(){
+    snakeBody = [
+        {x: 120, y: 120},
+        {x: 100, y: 120},
+        {x: 80, y: 120},
+        {x: 60, y: 120}
+    ]
+    snakeCopy = [...snakeBody];
+    console.log(snakeBody)
+    console.log(snakeCopy)
+    
     scoreboard = document.getElementById('score');
     canvas = document.getElementById('game-space')
     canvasContext = canvas.getContext('2d');
 
     let fps = 24;
-    setInterval(function(){
-        moveEverything(direction);
-        drawEverything();
-    }, 1000/fps);
+    // setInterval(function(){
+    //     moveEverything(direction);
+    //     drawEverything();
+    // }, 1000/fps);
+    // moveEverything(direction);
+    // drawEverything();
+
 }
 
 
@@ -57,7 +65,6 @@ function drawEverything(){
 }
 
 document.onkeydown = function(e){
-    console.log(e.key);
     switch(e.key){
         case "ArrowUp":
             direction = "up";
@@ -118,19 +125,31 @@ function moveEverything(direction){
     switch(direction){
         case "left":
             snakeBody[0].x -= pixelSize
-            // snakeX -= 20;
             break;
         case "right":
-            snakeBody[0].x += pixelSize
-            // snakeX += 20;
+
+            // snakeBody[0].x += pixelSize
+
+            for(let i = 0; i < snakeBody.length; i++){
+                if(i === 0){
+                    snakeBody[0].x += pixelSize
+                }
+
+                if(i > 0){
+                    snakeBody[i] = snakeCopy[i-1]
+                }
+            }
+            console.log(snakeBody)
+            console.log(snakeCopy)
+            // snakeCopy = snakeBody;
             break
         case "up":
+
             snakeBody[0].y -= pixelSize
-            // snakeY -= 20;
             break;
         case "down":
+
             snakeBody[0].y += pixelSize
-            // snakeY += 20;
             break;            
     }
 }
