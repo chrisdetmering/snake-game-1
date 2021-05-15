@@ -19,8 +19,6 @@ window.onload = function(){
         {x: 60, y: 120}
     ]
     snakeCopy = JSON.parse(JSON.stringify(snakeBody));
-    // console.log(snakeBody)
-    // console.log(snakeCopy)
     
     scoreboard = document.getElementById('score');
     canvas = document.getElementById('game-space')
@@ -31,12 +29,8 @@ window.onload = function(){
         moveEverything(direction);
         drawEverything();
     }, 1000/fps);
-    // drawEverything();
-    // moveEverything(direction);
 
 }
-
-
 
 function drawEverything(){
     canvasContext.fillStyle = "white"
@@ -48,32 +42,27 @@ function drawEverything(){
     
     drawSnake();
 
-    //===REFACOTRING - OLD CODE MAY NOT WORK WITH NEW ATTEMPT====
-    // if(direction === "up" || direction === "down"){
-    //     snake.fillRect(snakeX, snakeY, snakeHeight, snakeWidth);
-    // }
-    // if(direction === "left" || direction === "right"){
-    //     snake.fillRect(snakeX, snakeY, snakeWidth, snakeHeight);
-    // }
-
-    // if (snakeX === appleX && snakeY === appleY){
-    //     newApple();
-    // }
-    //==========================================================
+    if (snakeBody[0].x === appleX && snakeBody[0].y === appleY){
+        newApple();
+    }
 }
 
 document.onkeydown = function(e){
     switch(e.key){
         case "ArrowUp":
+            if(direction !== "down")
             direction = "up";
             break;
         case "ArrowDown":
+            if(direction !== "up")
             direction = "down";
             break;
         case "ArrowLeft":
+            if(direction !== "right")
             direction = "left";
             break;
         case "ArrowRight":
+            if(direction !== "left")
             direction = "right";
             break;
     }
@@ -127,6 +116,13 @@ function newApple(){
     appleX = x;
     appleY = y;
     snakeWidth += 20;
+    snakeBody.push(
+        {
+            x: snakeBody[snakeBody.length-1].x, 
+            y: snakeBody[snakeBody.length-1].y
+        }
+    )
+    snakeCopy = JSON.parse(JSON.stringify(snakeBody));
 }
 
 function moveEverything(direction){
@@ -136,25 +132,8 @@ function moveEverything(direction){
             drawBody();
             break;
         case "right":
-
             snakeBody[0].x += pixelSize
             drawBody()
-
-            // for(let i = 0; i < snakeBody.length; i++){
-            //     if(i === 0){
-            //         snakeBody[0].x += pixelSize;
-    
-            //     }
-
-            //     if(i > 0){
-            //         console.log(snakeBody[i])
-            //         snakeBody[i] = snakeCopy[i-1]
-            //         console.log(snakeBody[i])
-            //     }
-            // }
-            // console.log(snakeBody)
-            // console.log(snakeCopy)
-            // snakeCopy = snakeBody;
             break
         case "up":
             snakeBody[0].y -= pixelSize
@@ -166,21 +145,3 @@ function moveEverything(direction){
             break;            
     }
 }
-
-
-// function moveEverything(direction){
-//     switch(direction){
-//         case "left":
-//             snakeX -= 20;
-//             break;
-//         case "right":
-//             snakeX += 20;
-//             break
-//         case "up":
-//             snakeY -= 20;
-//             break;
-//         case "down":
-//             snakeY += 20;
-//             break;            
-//     }
-// }
