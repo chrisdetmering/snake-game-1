@@ -11,8 +11,6 @@ let pixelSize = 20;
 let snakeBody;
 let snakeCopy;
 
-
-
 window.onload = function(){
     snakeBody = [
         {x: 120, y: 120},
@@ -20,21 +18,21 @@ window.onload = function(){
         {x: 80, y: 120},
         {x: 60, y: 120}
     ]
-    snakeCopy = [...snakeBody];
-    console.log(snakeBody)
-    console.log(snakeCopy)
+    snakeCopy = JSON.parse(JSON.stringify(snakeBody));
+    // console.log(snakeBody)
+    // console.log(snakeCopy)
     
     scoreboard = document.getElementById('score');
     canvas = document.getElementById('game-space')
     canvasContext = canvas.getContext('2d');
 
     let fps = 24;
-    // setInterval(function(){
-    //     moveEverything(direction);
-    //     drawEverything();
-    // }, 1000/fps);
-    // moveEverything(direction);
+    setInterval(function(){
+        moveEverything(direction);
+        drawEverything();
+    }, 1000/fps);
     // drawEverything();
+    // moveEverything(direction);
 
 }
 
@@ -98,10 +96,20 @@ document.onkeydown = function(e){
 
 function drawSnake(){
     snakeBody.forEach(pixel => {
+        // debugger
         snakePiece = canvasContext;
         snakePiece.fillStyle = "blue";
-        snakePiece.fillRect(pixel.x, pixel.y, 20, 20)
+        snakePiece.fillRect(pixel.x, pixel.y, pixelSize, pixelSize)
     })
+}
+
+function drawBody(){
+    snakeBody = [snakeBody.shift()];
+    snakeCopy.pop()
+    snakeCopy.forEach(element =>{
+        snakeBody.push(element);
+    })
+    snakeCopy = JSON.parse(JSON.stringify(snakeBody));
 }
 
 
@@ -125,31 +133,36 @@ function moveEverything(direction){
     switch(direction){
         case "left":
             snakeBody[0].x -= pixelSize
+            drawBody();
             break;
         case "right":
 
-            // snakeBody[0].x += pixelSize
+            snakeBody[0].x += pixelSize
+            drawBody()
 
-            for(let i = 0; i < snakeBody.length; i++){
-                if(i === 0){
-                    snakeBody[0].x += pixelSize
-                }
+            // for(let i = 0; i < snakeBody.length; i++){
+            //     if(i === 0){
+            //         snakeBody[0].x += pixelSize;
+    
+            //     }
 
-                if(i > 0){
-                    snakeBody[i] = snakeCopy[i-1]
-                }
-            }
-            console.log(snakeBody)
-            console.log(snakeCopy)
+            //     if(i > 0){
+            //         console.log(snakeBody[i])
+            //         snakeBody[i] = snakeCopy[i-1]
+            //         console.log(snakeBody[i])
+            //     }
+            // }
+            // console.log(snakeBody)
+            // console.log(snakeCopy)
             // snakeCopy = snakeBody;
             break
         case "up":
-
             snakeBody[0].y -= pixelSize
+            drawBody()
             break;
         case "down":
-
             snakeBody[0].y += pixelSize
+            drawBody()
             break;            
     }
 }
