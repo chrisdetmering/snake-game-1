@@ -51,10 +51,9 @@ function drawEverything(direction){
 }
 
 document.onkeydown = function(e){
-    if(direction !== "stop"){
-        return
-        gameOver();
-    }
+    if(direction === "stop"){
+        return gameOver();
+    } 
         switch(e.key){
             case "ArrowUp":
                 if(direction !== "down")
@@ -142,6 +141,7 @@ function moveEverything(direction){
         case "left":
             if(snakeBody[0].x - pixelSize < 0){
                 direction = "stop";
+                gameOver();
             } else{
                 snakeBody[0].x -= pixelSize
                 moveBody();
@@ -159,6 +159,7 @@ function moveEverything(direction){
         case "up":
             if(snakeBody[0].y - pixelSize < 0){
                 direction = "stop";
+                gameOver();
             } else{
                 snakeBody[0].y -= pixelSize
                 moveBody()
@@ -167,7 +168,7 @@ function moveEverything(direction){
         case "down":
             if(snakeBody[0].y + pixelSize === canvas.height){
                 direction = "stop"
-
+                gameOver();
             } else{
                 snakeBody[0].y += pixelSize
                 moveBody()
