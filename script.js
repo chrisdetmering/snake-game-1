@@ -74,15 +74,24 @@ document.onkeydown = function(e){
         }
 }
 
+function isOuroboros(headX, headY){
+    let match;
+    snakeBody.forEach(pixel =>{
+        if(pixel.x === headX && pixel.y === headY){
+            match = true
+        }
+    })
+    return match
+}
+
 function gameOver(){
+    direction = "stop";
     console.log("Game Over!");
     clearInterval(heartBeat)
 }
 
 
 //IF GAME OVER
-        //SNAKE TOUCHES ITSELF
-        //SNAKE TOUCHES THE OUTSIDE BORDER
     //WHEN GAME OVER
         //STOP GAME
         //NOTIFY USER
@@ -135,12 +144,14 @@ function newApple(){
 }
 
 function moveEverything(direction){
-
+    let pendingHeadChange;
     switch(direction){
 
         case "left":
-            if(snakeBody[0].x - pixelSize < 0){
-                direction = "stop";
+
+            pendingHeadChange = snakeBody[0].x - pixelSize
+            
+            if(pendingHeadChange < 0 || isOuroboros(pendingHeadChange, snakeBody[0].y)){
                 gameOver();
             } else{
                 snakeBody[0].x -= pixelSize
@@ -148,17 +159,21 @@ function moveEverything(direction){
             }
             break;
         case "right":
-            if(snakeBody[0].x + pixelSize === canvas.width){
-                direction = "stop";
+
+            pendingHeadChange = snakeBody[0].x + pixelSize
+
+            if(pendingHeadChange === canvas.width || isOuroboros(pendingHeadChange, snakeBody[0].y)){
                 gameOver();
             } else{
                 snakeBody[0].x += pixelSize
                 moveBody()
             }
             break
-        case "up":
-            if(snakeBody[0].y - pixelSize < 0){
-                direction = "stop";
+        case "up": 
+            
+            pendingHeadChange = snakeBody[0].y - pixelSize
+
+            if(pendingHeadChange < 0 || isOuroboros(snakeBody[0].x, pendingHeadChange)){
                 gameOver();
             } else{
                 snakeBody[0].y -= pixelSize
@@ -166,8 +181,10 @@ function moveEverything(direction){
             }
             break;
         case "down":
-            if(snakeBody[0].y + pixelSize === canvas.height){
-                direction = "stop"
+            
+            pendingHeadChange = snakeBody[0].y + pixelSize
+
+            if(pendingHeadChange === canvas.height || isOuroboros(snakeBody[0].x, pendingHeadChange)){
                 gameOver();
             } else{
                 snakeBody[0].y += pixelSize
